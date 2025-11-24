@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model attendance {
+  id        Int      @id @default(autoincrement()) @db.UnsignedInt
+  staff_id  Int      @db.UnsignedInt
+  check_in  DateTime @db.DateTime(0)
+  check_out DateTime @db.DateTime(0)
+  staffs    staffs   @relation(fields: [staff_id], references: [id], map: "attendance_ibfk_1")
+
+  @@index([staff_id], map: "staff_id")
+}
+
+model shifts {
+  id         Int      @id @default(autoincrement()) @db.UnsignedInt
+  shift_name String   @db.VarChar(255)
+  start_time DateTime @db.Time(0)
+  end_time   DateTime @db.Time(0)
+  shift_days String
+  staffs     staffs[]
+}
+
+model staffs {
+  id           Int          @id @default(autoincrement()) @db.UnsignedInt
+  full_name    String       @db.VarChar(255)
+  email        String       @db.VarChar(255)
+  phone_number String       @db.Char(10)
+  role         staffs_role
+  active       Boolean?     @default(true)
+  shift_id     Int?         @db.UnsignedInt
+  attendance   attendance[]
+  shifts       shifts?      @relation(fields: [shift_id], references: [id], map: "staffs_ibfk_1")
+
+  @@index([shift_id], map: "shift_id")
+}
+
+enum staffs_role {
+  Chef
+  Waiter
+  Cleaner
+  Cashier
+  Manager
+}
