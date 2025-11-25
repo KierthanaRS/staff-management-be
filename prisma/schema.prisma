@@ -8,11 +8,11 @@ datasource db {
 }
 
 model attendance {
-  id        Int      @id @default(autoincrement()) @db.UnsignedInt
-  staff_id  Int      @db.UnsignedInt
-  check_in  DateTime @db.DateTime(0)
-  check_out DateTime @db.DateTime(0)
-  staffs    staffs   @relation(fields: [staff_id], references: [id], map: "attendance_ibfk_1")
+  id        Int       @id @default(autoincrement()) @db.UnsignedInt
+  staff_id  Int       @db.UnsignedInt
+  check_in  DateTime  @db.DateTime(0)
+  check_out DateTime? @db.DateTime(0)
+  staffs    staffs    @relation(fields: [staff_id], references: [id], map: "attendance_ibfk_1")
 
   @@index([staff_id], map: "staff_id")
 }
