@@ -6,7 +6,13 @@ CREATE TABLE shifts (
     shift_name VARCHAR(255) NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
-    shift_days SET('Mon','Tue','Wed','Thu','Fri','Sat','Sun') NOT NULL
+);
+
+CREATE TABLE shift_days (
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    shift_id INT UNSIGNED NOT NULL,
+    day ENUM('Mon','Tue','Wed','Thu','Fri','Sat','Sun') NOT NULL,
+    FOREIGN KEY (shift_id) REFERENCES shifts(id)
 );
 
 CREATE TABLE staffs (

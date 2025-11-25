@@ -18,11 +18,11 @@ model attendance {
 }
 
 model shifts {
-  id         Int      @id @default(autoincrement()) @db.UnsignedInt
-  shift_name String   @db.VarChar(255)
-  start_time DateTime @db.Time(0)
-  end_time   DateTime @db.Time(0)
-  shift_days String
+  id         Int          @id @default(autoincrement()) @db.UnsignedInt
+  shift_name String       @db.VarChar(255)
+  start_time DateTime     @db.Time(0)
+  end_time   DateTime     @db.Time(0)
+  shift_days shift_days[]
   staffs     staffs[]
 }
 
@@ -40,10 +40,28 @@ model staffs {
   @@index([shift_id], map: "shift_id")
 }
 
+model shift_days {
+  shift_id Int            @db.UnsignedInt
+  day      shift_days_day
+  shifts   shifts         @relation(fields: [shift_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "shift_days_ibfk_1")
+
+  @@id([shift_id, day])
+}
+
 enum staffs_role {
   Chef
   Waiter
   Cleaner
   Cashier
   Manager
+}
+
+enum shift_days_day {
+  Mon
+  Tue
+  Wed
+  Thu
+  Fri
+  Sat
+  Sun
 }
