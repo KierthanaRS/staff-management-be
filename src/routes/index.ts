@@ -1,5 +1,5 @@
 import express from "express";
-import attendanceRouter from './attendanceRoutes'
+import attendanceRouter from './attendanceRoutes.js'
 import shiftRouter from './shiftRoutes.js'
 import staffRouter from "./staffRoutes.js";
 const router = express.Router();
