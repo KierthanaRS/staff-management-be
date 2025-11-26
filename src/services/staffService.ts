@@ -33,6 +33,7 @@ export const getAllStaffs = async () => {
     include: {
       shifts: {
         select: {
+          id: true,
           shift_name: true,
         },
       },
