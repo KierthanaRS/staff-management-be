@@ -11,7 +11,7 @@ import {
   shiftSchema
 } from "../schemas/shift.schema.js";
 import express from "express";
-import { logError, logInfo } from "../utils/logger.js";
+import { logError } from "../utils/logger.js";
 import { NotFoundError, ConflictError } from "../errors/apiError.js";
 import type { Request, Response } from "express";
 import { z } from "zod";

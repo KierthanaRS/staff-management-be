@@ -28,3 +28,10 @@ export const checkOut = async (data: CreateCheckOutInput) => {
   });
 };
 
+export const getAttendance = async () => {
+  return await prisma.attendance.findMany({
+    where: {
+      check_out: null
+    }
+  });
+};
