@@ -12,7 +12,7 @@ model attendance {
   staff_id  Int       @db.UnsignedInt
   check_in  DateTime  @db.DateTime(0)
   check_out DateTime? @db.DateTime(0)
-  staffs    staffs    @relation(fields: [staff_id], references: [id], map: "attendance_ibfk_1")
+  staffs    staffs    @relation(fields: [staff_id], references: [id], onDelete: NoAction, map: "attendance_ibfk_1")
 
   @@index([staff_id], map: "staff_id")
 }
@@ -30,7 +30,7 @@ model staffs {
   id           Int          @id @default(autoincrement()) @db.UnsignedInt
   full_name    String       @db.VarChar(255)
   email        String       @db.VarChar(255)
-  phone_number String       @db.Char(10)
+  phone_number String?      @db.Char(10)
   role         staffs_role
   active       Boolean?     @default(true)
   shift_id     Int?         @db.UnsignedInt
@@ -43,7 +43,7 @@ model staffs {
 model shift_days {
   shift_id Int            @db.UnsignedInt
   day      shift_days_day
-  shifts   shifts         @relation(fields: [shift_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "shift_days_ibfk_1")
+  shifts   shifts         @relation(fields: [shift_id], references: [id], onDelete: Cascade, map: "shift_days_ibfk_1")
 
   @@id([shift_id, day])
 }

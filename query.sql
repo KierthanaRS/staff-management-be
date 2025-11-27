@@ -12,7 +12,7 @@ CREATE TABLE shift_days (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     shift_id INT UNSIGNED NOT NULL,
     day ENUM('Mon','Tue','Wed','Thu','Fri','Sat','Sun') NOT NULL,
-    FOREIGN KEY (shift_id) REFERENCES shifts(id)
+    FOREIGN KEY (shift_id) REFERENCES shifts(id) ON DELETE CASCADE
 );
 
 CREATE TABLE staffs (
@@ -35,7 +35,7 @@ CREATE TABLE attendance (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     staff_id INT UNSIGNED NOT NULL,
     check_in DATETIME NOT NULL,
-    check_out DATETIME NOT NULL,
+    check_out DATETIME,
 
     FOREIGN KEY (staff_id)
         REFERENCES staffs(id)

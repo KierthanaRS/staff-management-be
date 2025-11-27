@@ -28,7 +28,16 @@ export const createShift = async (data: CreateShiftInput) => {
   await prisma.shift_days.createMany({
     data: shiftDaysData,
   });
-  return shift;
+  const fullShift = await prisma.shifts.findUnique({
+    where: { id: shift.id },
+    include: {
+      shift_days: {
+        select: { day: true },
+      },
+    },
+  });
+
+  return fullShift;
 };
 
 export const getAllShifts = async () => {

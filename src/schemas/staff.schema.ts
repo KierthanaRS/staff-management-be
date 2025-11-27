@@ -6,7 +6,7 @@ export const StaffRoleEnum = z.nativeEnum(staffs_role);
 export const createStaffSchema = z.object({
   full_name: z.string().min(1, "Full name is required"),
   email: z.string().email("Invalid email"),
-  phone_number: z.string().length(10, "Phone number must be exactly 10 digits"),
+  phone_number: z.string().length(10, "Phone number must be exactly 10 digits").or(z.literal("")).optional(),
   shift_id: z.number().int().positive(),
   staffs_role: StaffRoleEnum,
 });
