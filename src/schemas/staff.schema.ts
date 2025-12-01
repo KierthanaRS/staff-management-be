@@ -15,7 +15,7 @@ export const updateStaffSchema = z.object({
   id: z.number().int().positive(),
   full_name: z.string().min(1, "Full name is required").optional(),
   email: z.string().email("Invalid email").optional(),
-  phone_number: z.string().length(10).optional(),
+  phone_number: z.string().length(10, "Phone number must be exactly 10 digits").or(z.literal("")).optional(),
   shift_id: z.number().int().positive().optional(),
   staffs_role: StaffRoleEnum.optional(),
 });

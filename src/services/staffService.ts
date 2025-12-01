@@ -8,7 +8,7 @@ import type {
 export const createStaff = async (data: CreateStaffInput) => {
   const { full_name, email, phone_number, shift_id, staffs_role } = data;
   const exsisting = await prisma.staffs.findFirst({
-    where: { full_name, email },
+    where: { full_name, email,active:true },
   });
   if (exsisting)
     throw new ConflictError(
