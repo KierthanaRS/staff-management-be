@@ -1,7 +1,7 @@
-import { NotFoundError, ConflictError } from "../errors/apiError.js";
+import { NotFoundError, ConflictError, ValidationError } from "../errors/apiError.js";
 import { prisma } from "../lib/prisma.js";
 import type { CreateShiftInput } from "../schemas/shift.schema.js";
-import logger from "../utils/logger.js";
+
 
 export const createShift = async (data: CreateShiftInput) => {
   const { shift_name, start_time, end_time, shift_days } = data;
@@ -11,7 +11,7 @@ export const createShift = async (data: CreateShiftInput) => {
   const startTimeObj = new Date(`1970-01-01T${start_time}:00`);
   const endTimeObj = new Date(`1970-01-01T${end_time}:00`);
   if (isNaN(startTimeObj.getTime()) || isNaN(endTimeObj.getTime())) {
-    throw new Error("Invalid start_time or end_time format");
+    throw new ValidationError("Invalid start_time or end_time");
   }
   const shift = await prisma.shifts.create({
     data: {
